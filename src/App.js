@@ -1,10 +1,11 @@
 import './App.css'
+import Login from './components/Login'
 
 function App() {
   return (
     <>
       <div className="App">
-        This is react app for video-chatting application
+        <Login />
       </div>
     </>
   )
