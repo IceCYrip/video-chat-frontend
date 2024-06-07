@@ -83,8 +83,7 @@ const Login = () => {
         <Button
           variant="contained"
           color="success"
-          sx={{ marginTop: '25px', width: '75%' }}
-          // onClick={submit}
+          sx={{ marginTop: '25px', width: '95%' }}
           type="submit"
         >
           Login
