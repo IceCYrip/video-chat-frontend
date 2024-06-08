@@ -7,25 +7,24 @@ export const useSocketContext = () => useContext(SocketContext)
 
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocketDetails] = useState(null)
-  const [connectedUsers, setConnectedUsers] = useState([])
 
   const { authUser } = useAuthContext()
 
   useEffect(() => {
-    if (authUser) {
-      const socket = io('http://localhost:5000', {
+    if (!!authUser?.id) {
+      const newSocket = io('http://localhost:5000', {
         query: {
           userId: authUser?.id,
         },
       })
-      console.log('socket: ', socket)
+      console.log('socket: ', newSocket)
 
-      setSocketDetails(socket)
+      setSocketDetails(newSocket)
+    }
+  }, [authUser])
 
-      socket.on('getConnectedUsers', (users) => {
-        setConnectedUsers(users)
-      })
-
+  useEffect(() => {
+    if (!!socket) {
       return () => socket.close()
     } else {
       if (socket) {
@@ -33,12 +32,10 @@ export const SocketContextProvider = ({ children }) => {
         setSocketDetails(null)
       }
     }
-
-    console.log('authUser: ', authUser)
-  }, [authUser])
+  }, [socket])
 
   return (
-    <SocketContext.Provider value={{ socket, connectedUsers }}>
+    <SocketContext.Provider value={{ socket }}>
       {children}
     </SocketContext.Provider>
   )

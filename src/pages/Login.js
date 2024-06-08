@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../stylesheets/login.css'
+import '../stylesheets/loginAndSignUp.css'
 import axios from 'axios'
 import { useAuthContext } from '../context/AuthContext'
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
@@ -12,7 +12,7 @@ const Login = () => {
 
   const routeTo = useNavigate()
 
-  const { authUser, setAuthUser } = useAuthContext()
+  const { setAuthUser } = useAuthContext()
 
   const submit = (e) => {
     e.preventDefault()
@@ -37,16 +37,10 @@ const Login = () => {
     }
   }
 
-  const logout = () => {
-    localStorage.removeItem('loggedInUser')
-    setAuthUser(null)
-  }
-
   return (
     <div className={'loginWrapper'}>
       <form className={'loginContainer'} onSubmit={submit}>
         <h1 style={{ marginTop: 0, marginBottom: '20px' }}>LOGIN</h1>
-
         <TextField
           sx={{ width: '95%', marginTop: '10px' }}
           label="Email"
@@ -79,19 +73,16 @@ const Login = () => {
             ),
           }}
         />
-
         <Button
           variant="contained"
-          color="success"
-          sx={{ marginTop: '25px', width: '95%' }}
+          sx={{ marginTop: '30px', width: '95%' }}
           type="submit"
         >
           Login
         </Button>
-
         <span
           style={{
-            marginTop: '10px',
+            marginTop: '15px',
           }}
         >
           Don't have an account? <Link to="/sign-up">Create an account</Link>

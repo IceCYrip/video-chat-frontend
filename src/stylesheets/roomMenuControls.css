@@ -1,0 +1,20 @@
+.room-menu-controls {
+  padding: 14px 25px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.normal-button {
+  background-color: grey !important;
+  color: white !important;
+}
+.end-call-button {
+  background-color: red !important;
+  width: 75px;
+  border-radius: 25px !important;
+  color: white !important;
+}

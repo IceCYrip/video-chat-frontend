@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import '../stylesheets/login.css'
+import '../stylesheets/loginAndSignUp.css'
 import axios from 'axios'
 import { useAuthContext } from '../context/AuthContext'
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 const Login = () => {
   const [fullName, setFullName] = useState('')
@@ -13,7 +13,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const { authUser, setAuthUser } = useAuthContext()
+  const { setAuthUser } = useAuthContext()
+  const routeTo = useNavigate()
 
   const submit = (e) => {
     e.preventDefault()
@@ -33,6 +34,8 @@ const Login = () => {
           .then((res) => {
             setAuthUser(res?.data)
             localStorage.setItem('loggedInUser', JSON.stringify(res?.data))
+            window.alert('Account created successfully')
+            routeTo('/')
           })
           .catch((err) => {
             console.log('error: ', err)
@@ -40,11 +43,6 @@ const Login = () => {
           })
       }
     }
-  }
-
-  const logout = () => {
-    localStorage.removeItem('loggedInUser')
-    setAuthUser(null)
   }
 
   return (
@@ -118,8 +116,7 @@ const Login = () => {
 
         <Button
           variant="contained"
-          color="success"
-          sx={{ marginTop: '25px', width: '95%' }}
+          sx={{ marginTop: '30px', width: '95%' }}
           type="submit"
         >
           Create account
@@ -127,7 +124,7 @@ const Login = () => {
 
         <span
           style={{
-            marginTop: '10px',
+            marginTop: '15px',
           }}
         >
           Already have an account? <Link to="/login">Login</Link>
