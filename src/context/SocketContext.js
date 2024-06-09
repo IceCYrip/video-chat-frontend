@@ -17,7 +17,6 @@ export const SocketContextProvider = ({ children }) => {
           userId: authUser?.id,
         },
       })
-      console.log('socket: ', newSocket)
 
       setSocketDetails(newSocket)
     }

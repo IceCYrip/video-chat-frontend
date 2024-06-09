@@ -14,8 +14,12 @@ import {
   BackHand,
 } from '@mui/icons-material'
 
+import notificationSound from '../audio/notification.mp3'
+
 const RoomMenuControls = () => {
   const routeTo = useNavigate()
+
+  const sound = new Audio(notificationSound)
 
   const { socket } = useSocketContext()
 
@@ -38,7 +42,8 @@ const RoomMenuControls = () => {
       }, 1000)
     } else if (time === 0 && isRunning) {
       setChangeTimerColor('white')
-      console.log(`Time's up!`)
+      sound.play()
+      // console.log(`Time's up!`)
       setIsRunning(false)
     }
 
@@ -85,14 +90,17 @@ const RoomMenuControls = () => {
         <span style={{ color: changeTimerColor }}>{time} sec</span>
       </div>
       <div className="room-menu-controls">
-        <IconButton
-          className={
-            toggleRaisingHand ? 'raised-hand-button' : 'lowered-hand-button'
-          }
-          onClick={() => (toggleRaisingHand ? lowerHand() : raiseHand())}
-        >
-          <BackHand />
-        </IconButton>
+        {/* Host doesn't need the hand raise button */}
+        {room?.host_id != authUser?.id && (
+          <IconButton
+            className={
+              toggleRaisingHand ? 'raised-hand-button' : 'lowered-hand-button'
+            }
+            onClick={() => (toggleRaisingHand ? lowerHand() : raiseHand())}
+          >
+            <BackHand />
+          </IconButton>
+        )}
         <IconButton
           className="normal-button"
           onClick={() => setToggleVideo((prev) => !prev)}
@@ -110,7 +118,7 @@ const RoomMenuControls = () => {
         </IconButton>
 
         {room?.host_id == authUser?.id &&
-          [15, 30, 45, 60]?.map((duration) => (
+          [5, 15, 30, 45, 60]?.map((duration) => (
             <IconButton
               className="timer-button"
               key={duration}

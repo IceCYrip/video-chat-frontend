@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext'
 import { useParams } from 'react-router-dom'
 import '../stylesheets/participants.css'
 import PersonIcon from '@mui/icons-material/Person'
-import ParticipantCard from './ParticipantCard'
+import UserCard from './UserCard'
 import RoomMenuControls from './RoomMenuControls'
 import { useSocketContext } from '../context/SocketContext'
 
@@ -25,12 +25,10 @@ const Participant = () => {
       })
 
       socket?.on('hand-raised', (participantId) => {
-        console.log('hand-raised')
         setRaisedHandParticipants((prev) => [...prev, participantId])
       })
 
       socket?.on('hand-lowered', (participantId) => {
-        console.log('hand-lowered')
         setRaisedHandParticipants((prev) =>
           prev?.filter((j) => j !== participantId)
         )
@@ -49,10 +47,10 @@ const Participant = () => {
     <div className="participants-wrapper">
       <div className="participants-side">
         <span className="participants-title">
-          PARTICIPANTS: {allParticipants?.length}{' '}
+          PARTICIPANTS: {allParticipants?.length + 1}
         </span>
         {allParticipants?.map((details) => (
-          <ParticipantCard
+          <UserCard
             key={details?.id}
             fullName={details?.name}
             raisedHand={raisedHandParticipants?.includes(details?.id)}
@@ -60,7 +58,7 @@ const Participant = () => {
         ))}
       </div>
       <div className="host-side">
-        <ParticipantCard
+        <UserCard
           loggedInUser
           fullName={`${authUser?.name} (You)`}
           raisedHand={raisedHandParticipants?.includes(authUser?.id)}

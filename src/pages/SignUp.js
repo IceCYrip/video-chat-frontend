@@ -38,7 +38,7 @@ const Login = () => {
             routeTo('/')
           })
           .catch((err) => {
-            console.log('error: ', err)
+            console.error('error: ', err)
             window.alert(err.response.data.error)
           })
       }

@@ -25,6 +25,7 @@ const Room = () => {
         .then((res) => {
           if (res?.data?.isHost) {
             setIsHost(true)
+            socket?.emit('join-room', room_id, authUser?.id)
           } else {
             setIsHost(false)
             socket?.emit('join-room', room_id, authUser?.id)
@@ -33,7 +34,9 @@ const Room = () => {
         .catch((err) => {
           window.alert(err.response.data.error)
         })
-      socket?.on('room-joined', (roomDetails) => setRoom(roomDetails))
+      socket?.on('room-joined', (roomDetails) => {
+        setRoom(roomDetails)
+      })
 
       return () => {
         socket?.off('join-room')
