@@ -38,7 +38,6 @@ const Room = () => {
       return () => {
         socket?.off('join-room')
         socket?.off('room-joined')
-        socket?.off('get-room-participants')
       }
     }
   }, [socket, room_id, authUser?.id])

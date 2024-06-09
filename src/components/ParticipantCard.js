@@ -1,26 +1,25 @@
 import React from 'react'
 import PersonIcon from '@mui/icons-material/Person'
+import { BackHand } from '@mui/icons-material'
+import '../stylesheets/participants.css'
 
-const ParticipantCard = ({ fullName }) => {
+const ParticipantCard = ({
+  loggedInUser = false,
+  fullName,
+  raisedHand = false,
+}) => {
   return (
-    <>
-      <div
-        style={{
-          width: '10vw',
-          height: '10vw',
-          minWidth: '100px',
-          minHeight: '100px',
-          backgroundColor: '#171717',
-          color: 'white',
-
-          display: 'grid',
-          placeItems: 'center',
-        }}
-      >
-        <PersonIcon className="participant" style={{ fontSize: 80 }} />
-        {fullName}
-      </div>
-    </>
+    <div
+      className={
+        loggedInUser
+          ? 'logged-in-user-participant-card'
+          : 'other-participant-card'
+      }
+    >
+      {raisedHand && <BackHand className="raised-hand-icon" />}
+      <PersonIcon className="participant" style={{ fontSize: 80 }} />
+      {fullName}
+    </div>
   )
 }
 
