@@ -6,6 +6,8 @@ import PersonIcon from '@mui/icons-material/Person'
 import UserCard from './UserCard'
 import RoomMenuControls from './RoomMenuControls'
 import { useSocketContext } from '../context/SocketContext'
+import { IconButton } from '@mui/material'
+import { CopyAll } from '@mui/icons-material'
 
 const Participant = () => {
   const { room_id } = useParams()
@@ -13,6 +15,7 @@ const Participant = () => {
 
   const { socket } = useSocketContext()
 
+  const roomLink = `http://localhost:3000/room/${room_id}`
   const [allParticipants, setAllParticipants] = useState([])
   const [raisedHandParticipants, setRaisedHandParticipants] = useState([])
 
@@ -43,6 +46,17 @@ const Participant = () => {
     }
   }, [socket, authUser, room_id])
 
+  const copyToClipboard = () => {
+    navigator.clipboard
+      .writeText(roomLink)
+      .then(() => {
+        alert('Room link copied to clipboard!')
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err)
+      })
+  }
+
   return (
     <div className="participants-wrapper">
       <div className="participants-side">
@@ -65,6 +79,17 @@ const Participant = () => {
         />
         <PersonIcon className="host" />
         <RoomMenuControls />
+        <div className="room-link">
+          {/* <span>{roomLink}</span> */}
+          <span>Room id: {room_id}</span>
+
+          <IconButton
+            sx={{ color: 'rgb(36, 206, 255)' }}
+            onClick={copyToClipboard}
+          >
+            <CopyAll />
+          </IconButton>
+        </div>
       </div>
     </div>
   )

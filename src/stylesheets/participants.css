@@ -119,6 +119,24 @@
   right: 8px;
 }
 
+.room-link {
+  position: absolute;
+  bottom: 5.5%;
+  left: 3%;
+
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 8px;
+
+  background-color: rgba(245, 245, 245, 0.238);
+  color: white;
+
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

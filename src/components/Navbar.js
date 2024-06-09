@@ -17,9 +17,10 @@ const Navbar = () => {
 
   return (
     <div className="navbar-wrapper">
-      <div>Video-Chat</div>
+      <div>WeCall - Unite Over Distance</div>
+
       {authUser?.id ? (
-        <div className="right-side">
+        <div className="right-side" style={{ zIndex: 10 }}>
           <span className="welcome-text">Welcome, {authUser?.name}</span>
           <IconButton onClick={logout}>
             <ExitToAppOutlined className="logout-button" />
