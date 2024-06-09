@@ -118,7 +118,7 @@ const RoomMenuControls = () => {
         </IconButton>
 
         {room?.host_id == authUser?.id &&
-          [5, 15, 30, 45, 60]?.map((duration) => (
+          [15, 30, 45, 60]?.map((duration) => (
             <IconButton
               className="timer-button"
               key={duration}

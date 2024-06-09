@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
 import axios from 'axios'
 import Host from '../components/Host'
@@ -13,10 +13,11 @@ const Room = () => {
   const { socket } = useSocketContext()
   const [isHost, setIsHost] = useState(false)
 
+  const routeTo = useNavigate()
   const { setRoom } = useRoomContext()
 
   useEffect(() => {
-    if (!!socket && room_id) {
+    if (!!socket && room_id && authUser) {
       axios
         .post(`http://localhost:5000/checkRoomHost`, {
           room_id: +room_id,
@@ -44,6 +45,12 @@ const Room = () => {
       }
     }
   }, [socket, room_id, authUser?.id])
+
+  useEffect(() => {
+    if (!authUser?.id) {
+      routeTo('/login')
+    }
+  }, [])
 
   return isHost ? <Host /> : <Participant />
 }
